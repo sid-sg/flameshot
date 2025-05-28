@@ -135,6 +135,7 @@ static QMap<class QString, QSharedPointer<ValueHandler>>
 
 static QMap<QString, QSharedPointer<KeySequence>> recognizedShortcuts = {
 //           NAME                           DEFAULT_SHORTCUT
+    SHORTCUT("TYPE_OCR"                 ,   "O"                     ),
     SHORTCUT("TYPE_PENCIL"              ,   "P"                     ),
     SHORTCUT("TYPE_DRAWER"              ,   "D"                     ),
     SHORTCUT("TYPE_ARROW"               ,   "A"                     ),

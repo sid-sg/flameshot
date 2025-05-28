@@ -44,6 +44,7 @@ target_sources(flameshot PRIVATE save/savetool.h save/savetool.cpp)
 target_sources(flameshot PRIVATE accept/accepttool.h accept/accepttool.cpp)
 target_sources(flameshot PRIVATE invert/inverttool.h invert/inverttool.cpp)
 target_sources(flameshot PRIVATE selection/selectiontool.h selection/selectiontool.cpp)
+target_sources(flameshot PRIVATE ocr/ocrtool.h ocr/ocrtool.cpp)
 target_sources(
   flameshot
   PRIVATE text/textconfig.h

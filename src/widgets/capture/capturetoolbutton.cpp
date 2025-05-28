@@ -13,6 +13,7 @@
 #include <QPropertyAnimation>
 #include <QToolTip>
 
+
 // Button represents a single button of the capture widget, it can enable
 // multiple functionality.
 
@@ -45,6 +46,11 @@ void CaptureToolButton::initButton()
         m_tool = nullptr;
     }
     m_tool = ToolFactory().CreateTool(m_buttonType, this);
+
+    // printf("Creating tool for button type: %d, tool name: %s\n", 
+    //        (int)m_buttonType, m_tool->name().toStdString().c_str());
+    // fflush(stdout);
+
 
     resize(GlobalValues::buttonBaseSize(), GlobalValues::buttonBaseSize());
     setMask(QRegion(QRect(-1,
@@ -141,16 +147,16 @@ static std::map<CaptureTool::Type, int> buttonTypeOrder
       { CaptureTool::TYPE_MOVESELECTION, 12 }, { CaptureTool::TYPE_UNDO, 13 },
       { CaptureTool::TYPE_REDO, 14 }, { CaptureTool::TYPE_COPY, 15 },
       { CaptureTool::TYPE_SAVE, 16 }, { CaptureTool::TYPE_IMAGEUPLOADER, 17 },
-      { CaptureTool::TYPE_ACCEPT, 18 },
+      { CaptureTool::TYPE_ACCEPT, 18 }, {CaptureTool::TYPE_OCR, 19},
 #if !defined(Q_OS_MACOS)
-      { CaptureTool::TYPE_OPEN_APP, 19 }, { CaptureTool::TYPE_EXIT, 20 },
-      { CaptureTool::TYPE_PIN, 21 },
+      { CaptureTool::TYPE_OPEN_APP, 20 }, { CaptureTool::TYPE_EXIT, 21 },
+      { CaptureTool::TYPE_PIN, 22 },
 #else
-      { CaptureTool::TYPE_EXIT, 19 }, { CaptureTool::TYPE_PIN, 20 },
+      { CaptureTool::TYPE_EXIT, 20 }, { CaptureTool::TYPE_PIN, 21 },
 #endif
 
-      { CaptureTool::TYPE_SIZEINCREASE, 22 },
-      { CaptureTool::TYPE_SIZEDECREASE, 23 },
+      { CaptureTool::TYPE_SIZEINCREASE, 23 },
+      { CaptureTool::TYPE_SIZEDECREASE, 24 },
 };
 
 int CaptureToolButton::getPriorityByButton(CaptureTool::Type b)
@@ -170,6 +176,7 @@ QList<CaptureTool::Type> CaptureToolButton::iterableButtonTypes = {
     CaptureTool::TYPE_UNDO,         CaptureTool::TYPE_REDO,
     CaptureTool::TYPE_COPY,         CaptureTool::TYPE_SAVE,
     CaptureTool::TYPE_EXIT,         CaptureTool::TYPE_IMAGEUPLOADER,
+    CaptureTool::TYPE_OCR,
 #if !defined(Q_OS_MACOS)
     CaptureTool::TYPE_OPEN_APP,
 #endif

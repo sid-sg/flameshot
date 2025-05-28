@@ -25,6 +25,7 @@
 #include "sizeincrease/sizeincreasetool.h"
 #include "text/texttool.h"
 #include "undo/undotool.h"
+#include "ocr/ocrtool.h"
 
 ToolFactory::ToolFactory(QObject* parent)
   : QObject(parent)
@@ -37,6 +38,7 @@ CaptureTool* ToolFactory::CreateTool(CaptureTool::Type t, QObject* parent)
         return new TOOL(parent)
 
     switch (t) {
+        if_TYPE_return_TOOL(TYPE_OCR, OcrTool);
         if_TYPE_return_TOOL(TYPE_PENCIL, PencilTool);
         if_TYPE_return_TOOL(TYPE_DRAWER, LineTool);
         if_TYPE_return_TOOL(TYPE_ARROW, ArrowTool);
