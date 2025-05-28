@@ -47,11 +47,6 @@ void CaptureToolButton::initButton()
     }
     m_tool = ToolFactory().CreateTool(m_buttonType, this);
 
-    // printf("Creating tool for button type: %d, tool name: %s\n", 
-    //        (int)m_buttonType, m_tool->name().toStdString().c_str());
-    // fflush(stdout);
-
-
     resize(GlobalValues::buttonBaseSize(), GlobalValues::buttonBaseSize());
     setMask(QRegion(QRect(-1,
                           -1,
