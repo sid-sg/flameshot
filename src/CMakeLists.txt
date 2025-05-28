@@ -10,6 +10,11 @@ find_package(
         DBus
         LinguistTools)
 
+# Find Tesseract and Leptonica
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(TESSERACT REQUIRED tesseract)
+pkg_check_modules(LEPTONICA REQUIRED lept)
+
 if (USE_WAYLAND_CLIPBOARD)
     find_package(KF5GuiAddons)
 endif()
@@ -207,6 +212,13 @@ else ()
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../external/singleapplication>)
 endif()
 
+target_include_directories(
+    flameshot 
+    PRIVATE 
+        ${TESSERACT_INCLUDE_DIRS} ${LEPTONICA_INCLUDE_DIRS}
+        )
+
+
 target_link_libraries(
         flameshot
         project_warnings
@@ -217,7 +229,8 @@ target_link_libraries(
         Qt5::Widgets
         ${QTSINGLEAPPLICATION_LIBRARY}
         QtColorWidgets
-
+        ${TESSERACT_LIBRARIES}
+        ${LEPTONICA_LIBRARIES}
 )
 
 if (USE_WAYLAND_CLIPBOARD)
