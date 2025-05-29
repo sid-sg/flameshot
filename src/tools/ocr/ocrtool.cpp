@@ -35,7 +35,7 @@ CaptureTool::Type OcrTool::type() const
 
 QString OcrTool::description() const
 {
-    return tr("Extract text from selection and copy to clipboard");
+    return tr("Extract text from selection and copy to clipboard (O)");
 }
 
 CaptureTool* OcrTool::copy(QObject* parent)
