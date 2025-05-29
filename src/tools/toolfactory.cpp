@@ -14,6 +14,7 @@
 #include "line/linetool.h"
 #include "marker/markertool.h"
 #include "move/movetool.h"
+#include "ocr/ocrtool.h"
 #include "pencil/penciltool.h"
 #include "pin/pintool.h"
 #include "pixelate/pixelatetool.h"
@@ -25,7 +26,6 @@
 #include "sizeincrease/sizeincreasetool.h"
 #include "text/texttool.h"
 #include "undo/undotool.h"
-#include "ocr/ocrtool.h"
 
 ToolFactory::ToolFactory(QObject* parent)
   : QObject(parent)

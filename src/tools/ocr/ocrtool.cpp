@@ -5,8 +5,8 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QDebug>
-#include <tesseract/baseapi.h>
 #include <leptonica/allheaders.h>
+#include <tesseract/baseapi.h>
 
 OcrTool::OcrTool(QObject* parent)
   : AbstractActionTool(parent)
@@ -14,7 +14,7 @@ OcrTool::OcrTool(QObject* parent)
 
 bool OcrTool::closeOnButtonPressed() const
 {
-    return true; 
+    return true;
 }
 
 QIcon OcrTool::icon(const QColor& background, bool inEditor) const
@@ -46,20 +46,21 @@ CaptureTool* OcrTool::copy(QObject* parent)
 void OcrTool::pressed(CaptureContext& context)
 {
     emit requestAction(REQ_CLEAR_SELECTION);
-    
+
     QPixmap pixmapToProcess = context.selectedScreenshotArea();
-    
-    qDebug() << "OCR: Processing image size:" << pixmapToProcess.width() << "x" << pixmapToProcess.height();
-    
+
+    qDebug() << "OCR: Processing image size:" << pixmapToProcess.width() << "x"
+             << pixmapToProcess.height();
+
     QString extractedText = performOCR(pixmapToProcess);
-    
+
     if (!extractedText.isEmpty()) {
         QApplication::clipboard()->setText(extractedText);
         qDebug() << "OCR: Text copied to clipboard";
     } else {
         qDebug() << "OCR: No text found";
     }
-    
+
     emit requestAction(REQ_CAPTURE_DONE_OK);
     emit requestAction(REQ_CLOSE_GUI);
 }
@@ -67,21 +68,23 @@ void OcrTool::pressed(CaptureContext& context)
 QString OcrTool::performOCR(const QPixmap& pixmap)
 {
     QImage image = pixmap.toImage();
-    
+
     if (image.width() < 300 || image.height() < 100) {
-        image = image.scaled(image.width() * 2, image.height() * 2, 
-                           Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        image = image.scaled(image.width() * 2,
+                             image.height() * 2,
+                             Qt::KeepAspectRatio,
+                             Qt::SmoothTransformation);
     }
-    
+
     image = image.convertToFormat(QImage::Format_Grayscale8);
     image = image.convertToFormat(QImage::Format_RGB888);
-    
+
     image.setDotsPerMeterX(2835);
     image.setDotsPerMeterY(2835);
-    
+
     tesseract::TessBaseAPI api;
-    const char* languages = "eng+deu+fra+spa+chi_sim+jpn+ara+hin+rus"; 
-    
+    const char* languages = "eng+deu+fra+spa+chi_sim+jpn+ara+hin+rus";
+
     if (api.Init(nullptr, languages)) {
         if (api.Init(nullptr, "eng")) {
             qDebug() << "OCR: Failed to initialize Tesseract";
@@ -92,19 +95,18 @@ QString OcrTool::performOCR(const QPixmap& pixmap)
         qDebug() << "OCR: Using multilingual mode";
     }
 
-    
     api.SetPageSegMode(tesseract::PSM_AUTO);
-    
+
     api.SetVariable("debug_file", "/dev/null");
-    
-    api.SetImage(image.bits(), image.width(), image.height(), 3, image.bytesPerLine());
-    
+
+    api.SetImage(
+      image.bits(), image.width(), image.height(), 3, image.bytesPerLine());
+
     char* outText = api.GetUTF8Text();
     QString result = QString::fromUtf8(outText);
-    
+
     delete[] outText;
     api.End();
-    
+
     return result.trimmed();
 }
-

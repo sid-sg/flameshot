@@ -13,7 +13,6 @@
 #include <QPropertyAnimation>
 #include <QToolTip>
 
-
 // Button represents a single button of the capture widget, it can enable
 // multiple functionality.
 
@@ -142,7 +141,7 @@ static std::map<CaptureTool::Type, int> buttonTypeOrder
       { CaptureTool::TYPE_MOVESELECTION, 12 }, { CaptureTool::TYPE_UNDO, 13 },
       { CaptureTool::TYPE_REDO, 14 }, { CaptureTool::TYPE_COPY, 15 },
       { CaptureTool::TYPE_SAVE, 16 }, { CaptureTool::TYPE_IMAGEUPLOADER, 17 },
-      { CaptureTool::TYPE_ACCEPT, 18 }, {CaptureTool::TYPE_OCR, 19},
+      { CaptureTool::TYPE_ACCEPT, 18 }, { CaptureTool::TYPE_OCR, 19 },
 #if !defined(Q_OS_MACOS)
       { CaptureTool::TYPE_OPEN_APP, 20 }, { CaptureTool::TYPE_EXIT, 21 },
       { CaptureTool::TYPE_PIN, 22 },
