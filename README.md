@@ -82,7 +82,7 @@ tesseract-ocr-rus
 ### **Build**
 
 ```bash
-git clone https://github.com/yourusername/flameshot-ocr.git
+git clone https://github.com/sid-sg/flameshot-ocr.git
 cd flameshot-ocr
 mkdir build
 cmake -S . -B build && cmake --build build --parallel
